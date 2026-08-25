@@ -12,6 +12,17 @@ python3 -m http.server 4173
 
 Then open `http://localhost:4173`.
 
+### Windows / Lenovo laptop
+
+1. Copy the complete `know-your-puc` folder to the laptop, or clone its GitHub repository.
+2. Install Python 3 from [python.org](https://www.python.org/downloads/) if it is not already installed. During setup, select **Add Python to PATH**.
+3. Double-click `start-windows.bat`.
+4. The app opens at `http://localhost:4173`. Keep the Command Prompt window open while using the app; press `Ctrl+C` to stop it.
+
+### macOS or Linux
+
+Run `sh start-mac-linux.sh`, then open `http://localhost:4173`.
+
 ## Deploy
 
 This is a dependency-free static site. Upload the contents of this folder to Netlify, Vercel, GitHub Pages, or any static hosting service. There is no build command and the publish directory is the project root.
