@@ -12,7 +12,7 @@ python3 -m http.server 4173
 
 Then open `http://localhost:4173`.
 
-### Windows / Lenovo laptop
+### Windows
 
 1. Copy the complete `know-your-puc` folder to the laptop, or clone its GitHub repository.
 2. Install Python 3 from [python.org](https://www.python.org/downloads/) if it is not already installed. During setup, select **Add Python to PATH**.
