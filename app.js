@@ -11,6 +11,81 @@ let openQuestion = null;
 let loginError = '';
 let stationSearch = 'West Delhi';
 let stationMap = null;
+let language = 'en';
+let darkMode = false;
+const hindi = {
+  'Prototype': 'प्रोटोटाइप', 'Go home': 'होम पर जाएँ', 'Prototype disclosure': 'प्रोटोटाइप सूचना',
+  'This is a student prototype using simulated certificate records and illustrative rules. It is not connected to, endorsed by, or affiliated with Parivahan Sewa or any government system.': 'यह छात्रों का प्रोटोटाइप है जिसमें नकली प्रमाणपत्र रिकॉर्ड और उदाहरणात्मक नियमों का उपयोग किया गया है। यह परिवहन सेवा या किसी सरकारी प्रणाली से जुड़ा, समर्थित या संबद्ध नहीं है।',
+  'A simpler PUC journey': 'सरल PUC अनुभव', 'Technical result.': 'तकनीकी परिणाम।', 'Clear next step.': 'अगला कदम स्पष्ट।',
+  'Know Your PUC turns a Pollution Under Control result into an understandable emissions and action report.': 'Know Your PUC, Pollution Under Control परिणाम को आसान उत्सर्जन और कार्रवाई रिपोर्ट में बदलता है।',
+  'Login': 'लॉग इन', 'Choose a result': 'परिणाम चुनें', 'Understand it': 'इसे समझें', 'Know what to do': 'जानें क्या करना है',
+  'Designed for citizens': 'नागरिकों के लिए बनाया गया', 'Numbers alone don’t explain the result.': 'केवल संख्याएँ परिणाम नहीं समझातीं।', 'See each measurement against its displayed limit, in plain language, on any phone.': 'हर माप को उसकी प्रदर्शित सीमा के साथ सरल भाषा में, किसी भी फ़ोन पर देखें।',
+  '← Back to home': '← होम पर वापस', 'Secure access': 'सुरक्षित पहुँच', 'Login to view your PUC result': 'अपना PUC परिणाम देखने के लिए लॉग इन करें', 'Enter the details from your vehicle documents.': 'अपने वाहन दस्तावेज़ों से विवरण दर्ज करें।',
+  'Vehicle number': 'वाहन नंबर', 'Last 4 characters of chassis': 'चेसिस के अंतिम 4 अक्षर', 'Enter chassis characters': 'चेसिस के अक्षर दर्ज करें', 'Check my PUC': 'मेरा PUC देखें',
+  'The vehicle number or chassis characters do not match this record.': 'वाहन नंबर या चेसिस के अक्षर इस रिकॉर्ड से मेल नहीं खाते।',
+  'Your Vehicle:': 'आपका वाहन:', 'Maruti Suzuki • Petrol • 2019': 'मारुति सुजुकी • पेट्रोल • 2019', 'PUC STATUS': 'PUC स्थिति', 'VALID': 'मान्य', 'NEAR LIMIT PASS': 'सीमा के करीब — पास', 'FAIL! NEEDS ATTENTION!': 'असफल! ध्यान आवश्यक!',
+  '← Start over': '← फिर से शुरू करें', 'PASS': 'पास', 'FAIL': 'असफल', 'Your result is within the displayed limits.': 'आपका परिणाम प्रदर्शित सीमाओं के भीतर है।', 'Your result needs attention.': 'आपके परिणाम पर ध्यान देने की आवश्यकता है।',
+  'Your result is within limits, but close to the edge.': 'आपका परिणाम सीमाओं के भीतर है, लेकिन किनारे के करीब है।', 'Your result passes, but one or more measurements are close to the limit. Consider getting your vehicle checked soon.': 'आपका परिणाम पास है, लेकिन एक या अधिक माप सीमा के करीब हैं। अपने वाहन की जल्द जाँच कराने पर विचार करें।',
+  'Vehicle': 'वाहन', 'Type': 'प्रकार', 'Test date': 'परीक्षण तिथि', 'Your measurements': 'आपके माप', 'What the numbers mean': 'संख्याओं का अर्थ', 'Select a row for detail': 'विवरण के लिए पंक्ति चुनें',
+  'Pollutant': 'प्रदूषक', 'Your result': 'आपका परिणाम', 'Limit': 'सीमा', 'Status': 'स्थिति', 'Carbon monoxide': 'कार्बन मोनोऑक्साइड', 'Hydrocarbons': 'हाइड्रोकार्बन', 'Air-fuel combustion indicator': 'वायु-ईंधन दहन संकेतक',
+  'Over limit': 'सीमा से अधिक', 'Near limit': 'सीमा के करीब', 'Within limit': 'सीमा के भीतर', 'Ask about this result': 'इस परिणाम के बारे में पूछें', 'See next step': 'अगला कदम देखें',
+  'Helpful next step': 'सहायक अगला कदम', 'Find a nearby PUC station': 'पास का PUC स्टेशन खोजें', 'Enter an area to see simulated PUC testing stations for this prototype.': 'इस प्रोटोटाइप के लिए नकली PUC परीक्षण स्टेशन देखने हेतु क्षेत्र दर्ज करें।', 'Area or locality': 'क्षेत्र या इलाका', 'Show stations': 'स्टेशन दिखाएँ',
+  '← Back to result': '← परिणाम पर वापस', 'Pollutant detail': 'प्रदूषक विवरण', 'Your value': 'आपका मान', 'Displayed limit': 'प्रदर्शित सीमा', 'In plain language': 'सरल भाषा में', 'Why it matters': 'यह क्यों महत्वपूर्ण है', 'See your next step': 'अपना अगला कदम देखें',
+  'Your next step': 'आपका अगला कदम', 'What to do now': 'अब क्या करें', 'Ask a question': 'एक प्रश्न पूछें', 'View simple report': 'सरल रिपोर्ट देखें',
+  'Guided help': 'सहायता मार्गदर्शिका', 'Ask about this result': 'इस परिणाम के बारे में पूछें', 'What is CO?': 'CO क्या है?', 'Which measurement is closest to the limit?': 'कौन सा माप सीमा के सबसे करीब है?', 'What should I do next?': 'मुझे आगे क्या करना चाहिए?',
+  'Simplified PUC report': 'सरलीकृत PUC रिपोर्ट', 'Record': 'रिकॉर्ड', 'Result': 'परिणाम', 'Next step': 'अगला कदम', 'Copy summary': 'सारांश कॉपी करें', 'Save / print report': 'रिपोर्ट सहेजें / प्रिंट करें',
+  'Dark mode': 'डार्क मोड', 'Light mode': 'लाइट मोड', 'Switch language': 'भाषा बदलें', 'Switch theme': 'थीम बदलें'
+};
+
+Object.assign(hindi, {
+  'Your result passes. One measurement is close to the displayed limit.': 'आपका परिणाम पास है। एक माप प्रदर्शित सीमा के करीब है।',
+  'Your result passes. All shown measurements are within the displayed limits.': 'आपका परिणाम पास है। सभी दिखाए गए माप प्रदर्शित सीमाओं के भीतर हैं।',
+  'Your result does not pass because one or more measurements are over the displayed limit.': 'आपका परिणाम पास नहीं है क्योंकि एक या अधिक माप प्रदर्शित सीमा से अधिक हैं।',
+  'This value is still within the displayed limit, but it is close to it.': 'यह मान अभी भी प्रदर्शित सीमा के भीतर है, लेकिन उसके करीब है।',
+  'This value is comfortably within the displayed limit.': 'यह मान प्रदर्शित सीमा के भीतर सुरक्षित रूप से है।',
+  'The comparison shown here uses the prototype’s configured data, not an AI-generated limit.': 'यहाँ दिखाई गई तुलना प्रोटोटाइप के निर्धारित डेटा का उपयोग करती है, AI द्वारा बनाई गई सीमा का नहीं।',
+  'These exhaust measurements can affect local air quality. A PUC result does not measure a vehicle’s total climate footprint.': 'ये निकास माप स्थानीय वायु गुणवत्ता को प्रभावित कर सकते हैं। PUC परिणाम वाहन के कुल जलवायु प्रभाव को नहीं मापता।',
+  'It passes. Keep an eye on the close measurement.': 'यह पास है। सीमा के करीब वाले माप पर नज़र रखें।',
+  'It passes. Keep this result for your records.': 'यह पास है। इस परिणाम को अपने रिकॉर्ड के लिए रखें।',
+  'Arrange inspection, then retest.': 'जाँच कराएँ, फिर दोबारा परीक्षण कराएँ।',
+  'Keep the result for your records.': 'परिणाम को अपने रिकॉर्ड के लिए रखें।', 'Follow your normal testing schedule.': 'अपने सामान्य परीक्षण कार्यक्रम का पालन करें।',
+  'Arrange an inspection or maintenance visit.': 'जाँच या रखरखाव की व्यवस्था करें।', 'Retest after the issue has been addressed.': 'समस्या का समाधान होने के बाद दोबारा परीक्षण कराएँ।',
+  'Answers use only the selected prototype record and its configured information.': 'उत्तर केवल चुने गए प्रोटोटाइप रिकॉर्ड और उसकी निर्धारित जानकारी का उपयोग करते हैं।',
+  'All measurements in this selected record are within the displayed limits. Follow the usual testing schedule applicable to your vehicle.': 'इस चुने गए रिकॉर्ड के सभी माप प्रदर्शित सीमाओं के भीतर हैं। अपने वाहन के लिए लागू सामान्य परीक्षण कार्यक्रम का पालन करें।',
+  'One or more measurements in this selected record are over the displayed limit. Consider having the vehicle inspected or maintained, then take a new test. This prototype cannot identify a mechanical cause.': 'इस चुने गए रिकॉर्ड में एक या अधिक माप प्रदर्शित सीमा से अधिक हैं। वाहन की जाँच या रखरखाव कराएँ, फिर नया परीक्षण कराएँ। यह प्रोटोटाइप यांत्रिक कारण की पहचान नहीं कर सकता।',
+  'Keep this result for your records and follow the normal testing schedule.': 'इस परिणाम को अपने रिकॉर्ड के लिए रखें और सामान्य परीक्षण कार्यक्रम का पालन करें।',
+  'Arrange inspection or maintenance and retest afterward. The available certificate data is not enough to identify a mechanical cause.': 'जाँच या रखरखाव कराएँ और बाद में दोबारा परीक्षण कराएँ। उपलब्ध प्रमाणपत्र डेटा यांत्रिक कारण की पहचान के लिए पर्याप्त नहीं है।',
+  'Why did I pass?': 'मैं पास क्यों हुआ?', 'Why did I fail?': 'मैं असफल क्यों हुआ?', 'Answer based on': 'इस रिकॉर्ड पर आधारित उत्तर:',
+  'Simulated prototype location': 'नकली प्रोटोटाइप स्थान', 'Showing 4 simulated station locations around': 'आसपास 4 नकली स्टेशन स्थान दिखाए जा रहे हैं:',
+  'Map roads are for orientation only; station pins are demo data.': 'मानचित्र की सड़कें केवल दिशा के लिए हैं; स्टेशन पिन डेमो डेटा हैं।'
+  ,'North Delhi': 'उत्तर दिल्ली', 'South Delhi': 'दक्षिण दिल्ली', 'East Delhi': 'पूर्वी दिल्ली', 'West Delhi': 'पश्चिमी दिल्ली', 'Demo PUC Centre': 'डेमो PUC केंद्र',
+  'Carbon monoxide is a gas produced when fuel does not burn completely.': 'कार्बन मोनोऑक्साइड एक गैस है जो ईंधन के पूरी तरह न जलने पर बनती है।',
+  'Hydrocarbons are unburnt fuel particles released in vehicle exhaust.': 'हाइड्रोकार्बन वाहन के निकास से निकलने वाले बिना जले ईंधन के कण हैं।',
+  'Lambda indicates how closely the air and fuel mixture matches the expected combustion range.': 'लैम्ब्डा बताता है कि वायु और ईंधन का मिश्रण अपेक्षित दहन सीमा से कितना मेल खाता है।',
+  'This value is above the displayed limit by ': 'यह मान प्रदर्शित सीमा से अधिक है: ',
+  'This selected record passes because every shown measurement is at or below its configured limit.': 'यह चुना गया रिकॉर्ड पास है क्योंकि हर दिखाया गया माप अपनी निर्धारित सीमा पर या उससे नीचे है।',
+  'This selected record fails because ': 'यह चुना गया रिकॉर्ड असफल है क्योंकि ', ' is above its configured limit.': ' अपनी निर्धारित सीमा से अधिक है।',
+  'CO means carbon monoxide. It is a gas produced when fuel does not burn completely. This prototype can explain the result, but cannot identify a vehicle fault.': 'CO का अर्थ कार्बन मोनोऑक्साइड है। यह ईंधन के पूरी तरह न जलने पर बनने वाली गैस है। यह प्रोटोटाइप परिणाम समझा सकता है, लेकिन वाहन की खराबी की पहचान नहीं कर सकता।',
+  'is closest to its displayed limit:': 'अपनी प्रदर्शित सीमा के सबसे करीब है:', 'of that limit.': 'उस सीमा का।',
+  'This is informational guidance, not a legal determination.': 'यह केवल जानकारी के लिए मार्गदर्शन है, कानूनी निर्णय नहीं।'
+});
+function setLanguage(nextLanguage) { language = nextLanguage; render(); }
+function toggleDarkMode() { darkMode = !darkMode; render(); }
+function translatePage() {
+  document.documentElement.lang = language === 'hi' ? 'hi' : 'en';
+  document.title = language === 'hi' ? 'अपना PUC जानें' : 'Know Your PUC';
+  if (language !== 'hi') return;
+  const translate = value => Object.entries(hindi).sort((a, b) => b[0].length - a[0].length).reduce((translated, [english, hindiText]) => translated.split(english).join(hindiText), value);
+  const walker = document.createTreeWalker(document.getElementById('app'), NodeFilter.SHOW_TEXT);
+  const nodes = []; let node;
+  while (node = walker.nextNode()) nodes.push(node);
+  nodes.forEach(textNode => { textNode.nodeValue = translate(textNode.nodeValue); });
+  document.querySelectorAll('#app [placeholder], #app [aria-label], #app [title]').forEach(element => {
+    ['placeholder', 'aria-label', 'title'].forEach(attribute => {
+      if (element.hasAttribute(attribute)) element.setAttribute(attribute, translate(element.getAttribute(attribute)));
+    });
+  });
+}
 const stationAreas = {
   north: { label: 'North Delhi', center: [28.7355, 77.1260], stations: [
     { name: 'Rohini Demo PUC Centre', area: 'Rohini, North Delhi', lat: 28.7383, lng: 77.1177 },
@@ -45,13 +120,22 @@ function analysis(record) {
 function stateLabel(s) { return s === 'over' ? 'Over limit' : s === 'near' ? 'Near limit' : 'Within limit'; }
 function escapeHtml(value) { return value.replace(/[&<>"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[character]); }
 function statusCopy(result) { return result.pass ? (result.results.some(x => x.state === 'near') ? 'Your result passes. One measurement is close to the displayed limit.' : 'Your result passes. All shown measurements are within the displayed limits.') : 'Your result does not pass because one or more measurements are over the displayed limit.'; }
-function nav() { return `<header><button class="brand" onclick="go('home')" aria-label="Go home"><span class="brand-mark">K</span><span>Know Your <b>PUC</b></span></button><span class="prototype">Prototype</span></header>`; }
+function nav() { return `<style>.header-actions{display:flex;align-items:center;gap:8px}.language-toggle,.theme-toggle{border:0}.theme-toggle{background:var(--ink);color:#fff}.dark-mode{--paper:#0e1d24;--ink:#e5f2ed;--muted:#b1c6c0;--line:#31505a;--mint:#183f36;--peach:#4c302a}.dark-mode .hero{background:radial-gradient(circle at 80% 40%,#17473d 0,transparent 25%)}.dark-mode .prototype,.dark-mode .mini{background:#1c343d;color:var(--muted)}.dark-mode .secondary{background:#28444a;color:var(--ink)}.dark-mode .picker,.dark-mode .record,.dark-mode .pollutant,.dark-mode .login-card,.dark-mode .vehicle-profile,.dark-mode .environment,.dark-mode .questions button,.dark-mode .report,.dark-mode .measurement-table{background:#142a32!important;color:var(--ink)!important;border-color:var(--line)!important}.dark-mode .record.selected{background:#1c4038}.dark-mode .plain,.dark-mode .checklist,.dark-mode .answer,.dark-mode .measurement-table th{background:#1d3a3c!important;color:var(--ink)!important}.dark-mode .measurement-table tbody tr:hover{background:#1d3a3c!important}.dark-mode .measurement-table small,.dark-mode .record small,.dark-mode .pollutant-top small,.dark-mode .measure span,.dark-mode .lead,.dark-mode .plain p,.dark-mode .environment p,.dark-mode .answer p{color:var(--muted)!important}.dark-mode .login-card input{background:#10242c;color:var(--ink);border-color:var(--line)}.dark-mode .result-card.near{background:#4a3b17!important}.dark-mode .report th,.dark-mode .report td{border-color:var(--line)}@media(max-width:680px){.header-actions{gap:5px}.theme-toggle,.language-toggle{padding:7px 8px}}</style><header><button class="brand" onclick="go('home')" aria-label="Go home"><span class="brand-mark">K</span><span>Know Your <b>PUC</b></span></button><div class="header-actions"><span class="prototype">Prototype</span><button class="prototype theme-toggle" type="button" onclick="toggleDarkMode()" aria-label="Switch theme">${darkMode ? '☀ Light mode' : '◐ Dark mode'}</button><button class="prototype language-toggle" type="button" onclick="setLanguage(language === 'en' ? 'hi' : 'en')" aria-label="Switch language">${language === 'en' ? 'हिंदी' : 'English'}</button></div></header>`; }
 function disclosure() { return `<aside class="disclosure"><b>Prototype disclosure</b><span>This is a student prototype using simulated certificate records and illustrative rules. It is not connected to, endorsed by, or affiliated with Parivahan Sewa or any government system.</span></aside>`; }
 function go(next) { page = next; activePollutant = null; render(); window.scrollTo({top: 0, behavior: 'smooth'}); }
 function choose(id) { selected = records.find(r => r.id === id); go('dashboard'); }
 function render() {
   const views = { home, login, dashboard, detail, help, next, report };
+  document.body.classList.toggle('dark-mode', darkMode);
   document.getElementById('app').innerHTML = nav() + views[page]() + disclosure();
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle && darkMode) { themeToggle.style.background = '#061217'; themeToggle.style.color = '#fff'; }
+  const brandMark = document.querySelector('.brand-mark');
+  if (brandMark && darkMode) { brandMark.style.background = '#2d7162'; brandMark.style.color = '#fff'; }
+  const languageToggle = document.querySelector('.language-toggle');
+  if (languageToggle) { languageToggle.textContent = language === 'en' ? 'EN' : 'हि'; languageToggle.style.background = '#19775a'; languageToggle.style.color = '#fff'; languageToggle.style.fontWeight = '700'; languageToggle.style.padding = '9px 12px'; languageToggle.style.borderRadius = '9px'; languageToggle.style.boxShadow = '0 2px 0 rgba(0,0,0,.16)'; }
+  if (darkMode) document.getElementById('app').insertAdjacentHTML('beforeend', `<style id="dark-mode-contrast">body.dark-mode .primary{background:#2d7162!important;color:#fff!important}body.dark-mode .primary:hover{background:#3c8b78!important}body.dark-mode .result-card.pass{background:#1e4d40!important}body.dark-mode .result-card.fail{background:#542f2b!important}body.dark-mode .result-card.near{background:#5a4819!important}body.dark-mode .result-ring{background:#10242c!important;color:#fff!important}body.dark-mode .station-finder,body.dark-mode .station-list>div,body.dark-mode .station-search input{background:#142a32!important;color:#e5f2ed!important;border-color:#47636b!important}body.dark-mode .station-finder h2,body.dark-mode .station-finder p,body.dark-mode .station-finder b,body.dark-mode .station-list b,body.dark-mode .station-list span,body.dark-mode .station-note{color:#e5f2ed!important}body.dark-mode .station-search input::placeholder{color:#aac1bb!important}body.dark-mode #station-map{filter:brightness(.72) saturate(.78);border-color:#47636b!important}body.dark-mode .leaflet-control-zoom a{background:#142a32!important;color:#e5f2ed!important;border-color:#47636b!important}body.dark-mode .leaflet-popup-content-wrapper,body.dark-mode .leaflet-popup-tip{background:#142a32!important;color:#e5f2ed!important}body.dark-mode .leaflet-popup-content{color:#e5f2ed!important}body.dark-mode .disclosure,body.dark-mode .back{color:#bcd1cb!important}</style>`);
+  translatePage();
   window.setTimeout(renderStationMap, 0);
 }
 function home() { return `<section class="hero"><div class="eyebrow">A simpler PUC journey</div><h1>Technical result.<br>Clear next step.
