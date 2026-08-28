@@ -1,6 +1,6 @@
 # Know Your PUC
 
-**[View Live Demo]({know-your-puc.vercel.app})**
+**[View Live Demo](https://know-your-puc.vercel.app/)**
 
 Know Your PUC is a mobile-first prototype that makes vehicle emissions certificates easier to understand. Instead of just displaying raw numbers, it translates a Pollution Under Control (PUC) certificate into a clear result, showing pollutant comparisons, next-step guidance, and contextual help based on the certificate data.
 
