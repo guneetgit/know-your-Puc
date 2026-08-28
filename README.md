@@ -6,6 +6,12 @@ Know Your PUC is a mobile-first prototype that makes vehicle emissions certifica
 
 It was built as a hackathon project to demonstrate how citizen-facing government services can be simplified.
 
+## Demo Login
+
+To test the application, you can use the following mock credentials to view a simulated PUC certificate result:
+- **Vehicle Number:** `DL 01 XX 2002`
+- **Last 4 characters of chassis:** `2002`
+
 ## Features
 
 - **Simplified Dashboard:** Translates complex PUC numbers into plain language (e.g., Comfortable Pass, Near-limit Pass, Fail).
