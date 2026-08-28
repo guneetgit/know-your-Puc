@@ -1,35 +1,49 @@
 # Know Your PUC
 
-A mobile-first hackathon prototype that translates a simulated PUC certificate into an understandable result, pollutant comparison, next-step guidance, and constrained certificate-grounded help.
+**[View Live Demo]({know-your-puc.vercel.app})**
 
-## Run locally
+Know Your PUC is a mobile-first prototype that makes vehicle emissions certificates easier to understand. Instead of just displaying raw numbers, it translates a Pollution Under Control (PUC) certificate into a clear result, showing pollutant comparisons, next-step guidance, and contextual help based on the certificate data.
 
-From this folder, serve the files with any static web server. For example:
+It was built as a hackathon project to demonstrate how citizen-facing government services can be simplified.
 
-```sh
+## Features
+
+- **Simplified Dashboard:** Translates complex PUC numbers into plain language (e.g., Comfortable Pass, Near-limit Pass, Fail).
+- **Bilingual Support:** Full English and Hindi toggle.
+- **Dark Mode:** Built-in light/dark theme switcher.
+- **Locally Driven:** Fully static frontend with no backend dependencies. Data is simulated locally.
+- **Next-step Guidance:** Gives actionable advice based on test results (e.g., when to retest or inspect).
+- **Station Locator:** Includes a demo map showing simulated testing stations nearby.
+
+## Tech Stack
+
+- **Frontend:** HTML, CSS, and vanilla JavaScript
+- **Maps:** Leaflet.js
+- **No Build Step:** It's entirely static and dependency-free.
+
+## Running Locally
+
+Since the app is purely static HTML/CSS/JS, you just need a basic web server to serve the files.
+
+**Using Python (Mac/Linux/Windows):**
+```bash
 python3 -m http.server 4173
 ```
+Then navigate to `http://localhost:4173` in your browser.
 
-Then open `http://localhost:4173`.
+**Using provided scripts:**
+- **Windows:** Double-click `start-windows.bat`. This will start the Python server and open the app.
+- **Mac/Linux:** Run `sh start-mac-linux.sh` in your terminal.
 
-### Windows
+## Deployment
 
-1. Copy the complete `know-your-puc` folder to the laptop, or clone its GitHub repository.
-2. Install Python 3 from [python.org](https://www.python.org/downloads/) if it is not already installed. During setup, select **Add Python to PATH**.
-3. Double-click `start-windows.bat`.
-4. The app opens at `http://localhost:4173`. Keep the Command Prompt window open while using the app; press `Ctrl+C` to stop it.
+This project is deployed and hosted on **Vercel**.
 
-### macOS or Linux
+Because there are no dependencies or build steps, the app functions as a simple static site. If you are forking the project and want to deploy it yourself, you can deploy the contents of this folder directly to Vercel (or Netlify/GitHub Pages) with the publish directory set to the project root.
 
-Run `sh start-mac-linux.sh`, then open `http://localhost:4173`.
+## Prototype Boundaries & Disclaimer
 
-## Deploy
-
-This is a dependency-free static site. Upload the contents of this folder to Netlify, Vercel, GitHub Pages, or any static hosting service. There is no build command and the publish directory is the project root.
-
-## Prototype boundaries
-
-- All records and rules are synthetic and illustrative.
-- The prototype is not connected to or endorsed by Parivahan Sewa or any government system.
-- Result status is derived locally from configured record values and limits.
-- Guided help is intentionally limited to the supplied prototype record and does not diagnose vehicle faults or create legal limits.
+This is a proof-of-concept prototype:
+- All PUC records, rules, and limits are synthetic and purely for illustrative purposes.
+- It is **not** connected to, affiliated with, or endorsed by Parivahan Sewa or any official government system.
+- The guided help is limited to the prototype's configured records and cannot diagnose real-world vehicle faults or determine legal compliance.
